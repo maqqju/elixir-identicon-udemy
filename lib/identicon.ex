@@ -10,13 +10,10 @@ defmodule Identicon do
     |> filter_odd_squares
   end
 
-  def filter_odd({hex, index} = square) do
-    rem(hex,2) == 0
-  end
-
   def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
-    grid
-    |>Enum.filter(&filter_odd/1)
+    Enum.filter grid, fn({code, _index} = square) -> 
+      rem(code,2) == 0
+    end
   end
 
   def mirror_row([a,b,c] = row) do
